@@ -1,0 +1,19 @@
+{
+  "name": "kalmantests",
+  "version": "1.0.0",
+  "description": "Testing kalman filter on rssi values",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JJTrack/KalmanTests.git"
+  },
+  "author": "jono",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JJTrack/KalmanTests/issues"
+  },
+  "homepage": "https://github.com/JJTrack/KalmanTests#readme"
+}
