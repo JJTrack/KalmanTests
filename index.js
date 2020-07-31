@@ -5,7 +5,7 @@ let rssiVals = [65.7, 77.2, 83.6, 83, 81.1, 83.8, 85.1, 88.8, 83.8];
 // 𝐴−10𝑛log(𝑑).
 let rssiFormula = distances.map((distance) => {
     let A = -65.7;
-    let n = 2;
+    let n = 1.2;
     
     return (A - 10*n*Math.log(distance)) * -1
 })
@@ -64,7 +64,7 @@ var myChart = new Chart(con, {
     data: {
         labels: distances,
         datasets: [{
-            label: 'RSSI (-dBm)',
+            label: 'measured RSSI (-dBm)',
             data: rssiMeasures,
         backgroundColor: "rgba(0, 0, 0, 0)",
         borderColor: "red",
@@ -92,7 +92,7 @@ var myChart = new Chart(con, {
         },
         title: {
             display: true,
-            text: "Measured RSSI vs Expected RSSI at -5dBm"
+            text: "Measured RSSI at 1m vs Kalman Filtered values"
         }
     }
 });
