@@ -97,3 +97,32 @@ var myChart = new Chart(con, {
     }
 });
 
+// Graph showing 5dBm 
+
+async function getData() {
+    const response = await fetch('rssi.csv');
+    const data = await response.text();
+    const rows = data.split('\n').slice(1);
+
+    let obj = {}
+
+    rows.forEach(row => {
+
+        let blah = row.split(",");
+        let nums = blah.slice(1, -1).map((num) => {
+            return parseInt(num, 10);
+        });
+
+        obj[blah[0]] = nums.map((rssi)=>{
+            return kf.filter(rssi);
+        })
+    })
+
+    return obj;
+}
+
+
+let data = getData();
+console.log(data);
+
+
