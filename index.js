@@ -5,7 +5,7 @@ let rssiVals = [65.7, 77.2, 83.6, 83, 81.1, 83.8, 85.1, 88.8, 83.8];
 // 𝐴−10𝑛log(𝑑).
 let rssiFormula = distances.map((distance) => {
     let A = -65.7;
-    let n = 1.2;
+    let n = 1;
     
     return (A - 10*n*Math.log(distance)) * -1
 })
@@ -104,8 +104,8 @@ async function getData() {
     const data = await response.text();
     const rows = data.split('\n').slice(1);
 
-    let obj = {}
-
+    let obj = [];
+    let index = 0;
     rows.forEach(row => {
 
         let blah = row.split(",");
@@ -113,16 +113,58 @@ async function getData() {
             return parseInt(num, 10);
         });
 
-        obj[blah[0]] = nums.map((rssi)=>{
-            return kf.filter(rssi);
+        obj[index] = nums.map((rssi)=>{
+            return kf.filter(rssi * -1);
         })
+
+        index++;
     })
 
-    return obj;
+    let asdf = obj.map((arr) => {
+        let total = arr.reduce((a, b) => a + b, 0);
+        return total/10; 
+    })
+
+    var cx = document.getElementById('kal').getContext('2d');
+    var myChart = new Chart(cx, {
+        type: 'line',
+        data: {
+            labels: distances,
+            datasets: [{
+                label: 'Filtered RSSI (-dBm)',
+                data: asdf,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            borderColor: "red",
+            borderWidth: 1,
+            responsive: true
+            },
+            {
+            label: 'Expected RSSI (-dBm)',
+            data: rssiFormula,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            borderColor: "blue",
+            borderWidth: 1,
+            responsive: true
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false,
+                        suggestedMax: 100,
+                        suggestedMin: 50
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: "Filtered RSSI vs Expected RSSI at -5dBm"
+            }
+        }
+    });
 }
 
-
-let data = getData();
-console.log(data);
+getData();
 
 
