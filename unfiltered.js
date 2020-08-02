@@ -1,7 +1,5 @@
 // Graph showing average 5dBm rssi values at each distance against expected values
-
-
-let unfilteredCTX = document.getElementById('myChart').getContext('2d');
+let unfilteredCTX = document.getElementById('chart').getContext('2d');
 let unfilteredChart = new Chart(unfilteredCTX, {
     type: 'line',
     data: {

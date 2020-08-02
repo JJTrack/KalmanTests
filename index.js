@@ -16,7 +16,6 @@ let filteredRssi = rssiMeasures.map((rssi)=>{
 
 
 // Graph showing 5dBm 
-
 async function getData() {
     const response = await fetch('rssi.csv');
     const data = await response.text();
