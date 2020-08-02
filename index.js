@@ -1,5 +1,8 @@
 let A = -65.7;
 let n = 0.9;
+let R = 0.05;
+let Q = 3;
+
 let distances = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let rssiVals = [65.7, 77.2, 83.6, 83, 81.1, 83.8, 85.1, 88.8, 83.8];
 
@@ -9,7 +12,7 @@ let rssiFormula = distances.map((distance) => {
 })
 
 let rssiMeasures = [71, 62, 61, 72, 67, 66, 64, 63, 65, 66];
-let kf = new KalmanFilter({R: 0.01, Q: 3});
+let kf = new KalmanFilter({R: R, Q: Q});
 let filteredRssi = rssiMeasures.map((rssi)=>{
     return kf.filter(rssi);
 })

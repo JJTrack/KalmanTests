@@ -4,3 +4,13 @@
     padding: 70px;
     float: left;
 }
+
+#toggle {
+    position: fixed;
+    left: 40%;
+    top: 20px;
+}
+
+.update {
+    margin: 30px;
+}

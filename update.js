@@ -18,9 +18,36 @@ function updateUnfiltered() {
         }]
 
     unfilteredChart.update();
-    console.log("hello");
 
 }
+
+function updateCon() {
+
+    conChart.data.datasets = [{
+        label: 'measured RSSI (-dBm)',
+        data: rssiMeasures,
+        backgroundColor: "rgba(0, 0, 0, 0)",
+        borderColor: "red",
+        borderWidth: 1,
+        responsive: true
+        },
+        {
+        label: 'filtered RSSI (-dBm)',
+        data: filteredRssi,
+        backgroundColor: "rgba(0, 0, 0, 0)",
+        borderColor: "blue",
+        borderWidth: 1,
+        responsive: true
+        }]
+
+    conChart.update();
+
+}
+
+
+
+
+$('.toast').toast('show');
 
 
 $(document).ready(function() {
@@ -37,6 +64,30 @@ $(document).ready(function() {
         return (A - 10*n*Math.log(distance)) * -1
         })
       updateUnfiltered();
+
+    });
+});
+
+$(document).ready(function() {
+
+    const $valueSpan = $('.valueSpan3');
+    const $value = $('#customRange12');
+    $valueSpan.html($value.val());
+    $value.on('input change', () => {
+  
+      $valueSpan.html($value.val());
+
+        R = $value.val();
+
+        kf = new KalmanFilter({R: R, Q: Q});
+        filteredRssi = rssiMeasures.map((rssi)=>{
+            return kf.filter(rssi);
+        })
+
+        console.log(rssiMeasures);
+
+        updateCon();
+
 
     });
 });
