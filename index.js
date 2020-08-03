@@ -1,6 +1,6 @@
 let A = -65.7;
 let n = 0.9;
-let R = 0.05;
+let R = 0.015;
 let Q = 3;
 
 let distances = [1, 2, 3, 4, 5, 6, 7, 8, 9];

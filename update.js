@@ -59,7 +59,8 @@ $(document).ready(function() {
   
       $valueSpan.html($value.val());
 
-      n = $value.val();
+      n = parseFloat($value.val());
+      console.log(n);
       rssiFormula = distances.map((distance) => {   
         return (A - 10*n*Math.log(distance)) * -1
         })
@@ -77,14 +78,12 @@ $(document).ready(function() {
   
       $valueSpan.html($value.val());
 
-        R = $value.val();
+        R = parseFloat($value.val());
 
-        kf = new KalmanFilter({R: R, Q: Q});
+        let kg = new KalmanFilter({R: R, Q: Q});
         filteredRssi = rssiMeasures.map((rssi)=>{
-            return kf.filter(rssi);
+            return kg.filter(rssi);
         })
-
-        console.log(rssiMeasures);
 
         updateCon();
 
